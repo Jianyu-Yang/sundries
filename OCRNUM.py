@@ -13,33 +13,45 @@ def imageTonum(image,i,j,frames_num):
         text=float(text)
     except:
         print("发生异常:%s"%text)
-        cv.namedWindow('input_image', cv.WINDOW_NORMAL)  # 设置为WINDOW_NORMAL可以任意缩放
-        cv.imshow('input_image', image)
-        # k = cv.waitKey(0)  # waitkey代表读取键盘的输入，括号里的数字代表等待多长时间，单位ms。 0代表一直等待
-        # if k == 27:  # 键盘上Esc键的键值
-        #     cv.destroyAllWindows()
-        cv.waitKey(0)
-        cv.destroyAllWindows()
-        text=float(input('正确的数字是：'))   # todo 类型转换：float
-        numarray[i][j]=text
-        # cv.destroyAllWindows()
-        print("%i/%i:input num=%f"%((i+1),frames_num,text))
+        try:
+            text=float(text[0:-1])
+        except:
+            cv.namedWindow('input_image', cv.WINDOW_NORMAL)  # 设置为WINDOW_NORMAL可以任意缩放
+            cv.imshow('input_image', image)
+            # k = cv.waitKey(0)  # waitkey代表读取键盘的输入，括号里的数字代表等待多长时间，单位ms。 0代表一直等待
+            # if k == 27:  # 键盘上Esc键的键值
+            #     cv.destroyAllWindows()
+            cv.waitKey(0)
+            cv.destroyAllWindows()
+            text=float(input('正确的数字是：'))   # todo 类型转换：float
+            numarray[i][j]=text
+            # cv.destroyAllWindows()
+            print("%i/%i:input num=%f"%((i+1),frames_num,text))
+        else:
+            numarray[i][j] = text
+            print("%i/%i:修正后的数字为=%f" % ((i + 1), frames_num, text))
     else:
         numarray[i][j] = text
         print("%i/%i:OCR num=%f"%((i+1),frames_num,text))
     # cv.imshow("ROI", image)
 
-cap = cv.VideoCapture(r"C:\Users\Administrator\Desktop\PTW-BeamAdjust-Video\330-DR-5X5.mp4") # 调整参数实现读取视频或调用摄像头
+cap = cv.VideoCapture(r"C:\Users\Administrator\Desktop\200227\18.mp4") # 调整参数实现读取视频或调用摄像头
 frames_num=int(cap.get(7))
 print("该视频总帧数为：%i"%frames_num)
 numarray = np.zeros((frames_num,4))
 i=0
 while 1:
     ret, frame = cap.read()
-    image1 = frame[224:251, 175:240]
-    image2 = frame[258:283, 175:240]
-    image3 = frame[224:251,1127:1192]
-    image4 = frame[258:283,1127:1192]
+    # image1 = frame[224:251, 175:240]
+    # image2 = frame[258:283, 175:240]
+    # image3 = frame[224:251,1127:1192]
+    # image4 = frame[258:283,1127:1192]
+
+    image1 = frame[149:165, 115:162]
+    image2 = frame[172:188, 115:162]
+    image3 = frame[149:165, 794:841]
+    image4 = frame[172:188, 794:841]
+
     # cv.imwrite(r"C:\Users\Administrator\Desktop\test-photos\1.png", image1)
     # cv.imwrite(r"C:\Users\Administrator\Desktop\test-photos\2.png", image2)
     # cv.imwrite(r"C:\Users\Administrator\Desktop\test-photos\3.png", image3)
@@ -61,3 +73,4 @@ while 1:
     #     break
 
 print("已完成！")
+
