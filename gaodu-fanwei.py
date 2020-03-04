@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+
+# 计算卫星轨道高度与地面覆盖圆直径对照表
+
 from matplotlib import pyplot as plt
 import cv2 as cv
 import numpy as np
