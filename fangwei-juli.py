@@ -1,3 +1,5 @@
+# 计算给定经纬度的两点之间的方位角与大圆距离
+
 from geographiclib.geodesic import Geodesic
 
 lat1=float(input("请输入当前位置纬度："))
